@@ -29,9 +29,16 @@ function getCategory($id)
 // Returns all categories
 function getCategories()
 {
+	global $db;
+
 	$categories = array();
 
-	// PDO goes here
+	$results = $db->query('SELECT * FROM categories');
+
+	while ($row = $results->fetch(PDO::FETCH_ASSOC))
+	{
+		$categories[] = $row;
+	}
 
 	return $categories;
 }
