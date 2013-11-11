@@ -6,8 +6,12 @@
  */
 function getRoute()
 {
-	// Get the current URI segment
-	$uri = $_SERVER['REQUEST_URI'];
+	// Get the requested uri from the server exluding the domain name.
+	$uri = strtok($_SERVER['REQUEST_URI'], '?');
+
+	// Remove the site path from the uri so we only get the segments
+	// that we actually want.
+	$uri = str_replace(SITE_PATH, '', $uri);
 
 	return $uri;
 }
