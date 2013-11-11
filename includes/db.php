@@ -5,7 +5,7 @@ global $db;
 // Try to create a new PDO connection
 try {
 	// Create a new connection to the MySQL database
-  	$db = new PDO(DB_CONSTRING, DB_USER, DB_PASS);
+  	$db = new PDO(DB_CONSTRING, DB_USERNAME, DB_PASSWORD);
 
   	// Set the error reporting attribute of PDO
   	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 

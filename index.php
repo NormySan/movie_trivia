@@ -26,8 +26,7 @@ if ($route = checkRoutes($appRoutes))
 else
 {
 	// Redirect the user to the default route if no other route matches
-	// header('Location: ' . SITE_DEFAULT_ROUTE);
-	redirect(SITE_DEFAULT_ROUTE);
+	redirect('/');
 }
 
 // Get main template file

@@ -15,3 +15,14 @@ function redirect($location)
 {
 	return header('Location: ' . url($location));
 }
+
+/**
+ * Takes the input string and renders it as the response
+ */
+function response($string)
+{
+	// Make sure the input is a string
+	$string = (string) $string;
+
+	echo $string;
+}
