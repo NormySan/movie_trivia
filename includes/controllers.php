@@ -3,5 +3,10 @@
 function HomeController()
 {
 	// Return the frontpage template file
-	return template('frontpage');
+	return getTemplate('frontpage');
+}
+
+function AdminController()
+{
+	return getTemplate('admin');
 }

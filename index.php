@@ -13,15 +13,16 @@ include 'includes.php';
 
 // Application routes
 $routes = array(
-	'/' => 'HomeController'
+	'/' 		=> 'HomeController',
+	'/admin' 	=> 'AdminController'
 );
 
 // Check if the current route matches any of our application routes. If it does we
 // try to execute the function associated with the current route.
-if ($route = checkRoutes($appRoutes))
+if ($route = checkRoutes($routes))
 {
 	// This will call the function associated with the current route
-	$data['content'] = call_user_func($appRoutes[$route]);
+	$data['content'] = call_user_func($routes[$route]);
 }
 else
 {
