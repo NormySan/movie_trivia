@@ -11,8 +11,6 @@
         </small>
         </h1>
     </div>
-
-
     <div class="row">                          
         <div class="col-md-6">
             <h3>Add a Question</h3>

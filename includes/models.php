@@ -43,6 +43,7 @@ function getCategories()
 	return $categories;
 }
 
+<<<<<<< cf4a6681cf4c5bee71b9f6f7efe27be3c351773c
 function saveCategory($menuAddName)
 {
 	global $db;
@@ -53,3 +54,34 @@ function saveCategory($menuAddName)
 	$statement->execute(array('name'=>$menuAddName);
 }
 
+=======
+// Returns all questions with answers
+function getQuestions()
+{
+
+}
+
+// Returns a single question specified by its id with the answers
+function getQuestion($id)
+{
+
+}
+
+// Returns a specified amount of random questions based on a category
+function getRandomQuestion($category = null, $limit = 10)
+{
+
+}
+
+// Updates a specific category with new values
+function updateCategory($id, $data)
+{
+
+}
+
+// Updates specific question
+function updateQuestion($id, $data)
+{
+
+}
+>>>>>>> c1252c8cc32306cbbe58229464c413bb5b97d161
