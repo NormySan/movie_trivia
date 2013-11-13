@@ -56,6 +56,19 @@ function saveCategory($menuAddName)
 // Returns all questions with answers
 function getQuestions()
 {
+	global $db;
+
+	$questions = array();
+
+	$results = $db->query('SELECT title FROM questions, answers');
+
+	while ($row = $results->fetch(PDO::FETCH_ASSOC))
+	{
+		$questions[] = $row;
+	}
+
+	return $questions;
+
 
 }
 
