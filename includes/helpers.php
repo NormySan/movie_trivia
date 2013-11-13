@@ -25,4 +25,5 @@ function response($string)
 	$string = (string) $string;
 
 	echo $string;
+	exit();
 }

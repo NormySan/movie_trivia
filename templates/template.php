@@ -12,15 +12,14 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-    </head>
-    <body>
-        <?php echo $content; ?>
-
         <!-- Include javascript files -->
         <script src="js/vendor/jquery-2.0.3.js"></script>
         <script src="js/vendor/bootstrap.js"></script>
 
         <!-- This is our applications main file -->
         <script src="js/app.js"></script>
+    </head>
+    <body>
+        <?php echo $content; ?>
     </body>
 </html>
