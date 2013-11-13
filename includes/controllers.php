@@ -53,7 +53,12 @@ function AdminController()
 	return getTemplate('admin');
 }
 
-function AdminCategoryController()
+function AdminCategoryController($data)
 {
+	if (isset($_POST) && count($_POST))
+	{
+		saveCategory($data)
+	}
 
+	redirect('admin');
 }
