@@ -4,7 +4,8 @@
 
 		// first ajax
 		var data = $.ajax({
-			url: 'questions'
+			url: 'questions',
+			type: 'GET'
 		}).done(function(response) {
 			var data = JSON.parse(response)
 
