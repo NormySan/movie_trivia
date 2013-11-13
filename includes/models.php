@@ -43,7 +43,6 @@ function getCategories()
 	return $categories;
 }
 
-<<<<<<< cf4a6681cf4c5bee71b9f6f7efe27be3c351773c
 function saveCategory($menuAddName)
 {
 	global $db;
@@ -54,7 +53,6 @@ function saveCategory($menuAddName)
 	$statement->execute(array('name'=>$menuAddName);
 }
 
-=======
 // Returns all questions with answers
 function getQuestions()
 {
@@ -84,4 +82,3 @@ function updateQuestion($id, $data)
 {
 
 }
->>>>>>> c1252c8cc32306cbbe58229464c413bb5b97d161
