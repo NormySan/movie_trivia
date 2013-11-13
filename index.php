@@ -15,7 +15,8 @@ include 'includes.php';
 $routes = array(
 	'/' 			=> 'HomeController',
 	'/admin' 		=> 'AdminController',
-	'/questions' 	=> 'QuestionsController'
+	'/questions' 	=> 'QuestionsController',
+	'/categories' 	=> 'CategoriesController'
 );
 
 // Check if the current route matches any of our application routes. If it does we

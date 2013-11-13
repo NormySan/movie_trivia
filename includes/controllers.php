@@ -40,3 +40,12 @@ function QuestionsController()
 
 	response($questions);
 }
+
+function CategoriesController()
+{
+	$categories = getCategories();
+
+	$categories = json_encode($categories);
+
+	response($categories);
+}

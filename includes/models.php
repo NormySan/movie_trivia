@@ -50,7 +50,7 @@ function saveCategory($menuAddName)
 	$statement = $db->prepare("INSERT INTO categories(title) 
 							   VALUES(:name)");							 
 	
-	$statement->execute(array('name'=>$menuAddName);
+	$statement->execute(array('name'=>$menuAddName));
 }
 
 // Returns all questions with answers
