@@ -57,7 +57,7 @@ function AdminCategoryController($data)
 {
 	if (isset($_POST) && count($_POST))
 	{
-		saveCategory($data)
+		saveCategory($data);
 	}
 
 	redirect('admin');
