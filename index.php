@@ -13,10 +13,11 @@ include 'includes.php';
 
 // Application routes
 $routes = array(
-	'/' 			=> 'HomeController',
-	'/admin' 		=> 'AdminController',
-	'/questions' 	=> 'QuestionsController',
-	'/categories' 	=> 'CategoriesController'
+	'/' 				=> 'HomeController',
+	'/admin' 			=> 'AdminController',
+	'/admin/category' 	=> 'AdminCategoryController',
+	'/questions' 		=> 'QuestionsController',
+	'/categories' 		=> 'CategoriesController'
 );
 
 // Check if the current route matches any of our application routes. If it does we

@@ -6,11 +6,6 @@ function HomeController()
 	return getTemplate('frontpage');
 }
 
-function AdminController()
-{
-	return getTemplate('admin');
-}
-
 function QuestionsController()
 {
 	$questions = array(
@@ -48,4 +43,17 @@ function CategoriesController()
 	$categories = json_encode($categories);
 
 	response($categories);
+}
+
+/**
+ * Admin Controllers
+ */
+function AdminController()
+{
+	return getTemplate('admin');
+}
+
+function AdminCategoryController()
+{
+
 }
