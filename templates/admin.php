@@ -54,24 +54,21 @@
                     </div>
                 </div>                    
                 <button type="submit" class="btn btn-primary">Save</button>
-            </form>
+            </form>             
             
-            <div class="col-md-6">        
-                <h3>Add a category</h3>
-                <form method="post" name="addCategory" id="addCategory">
-                    <div class="form-group">
-                        <label for="addCategoryName">Name:</label>
-                        <input type="text" class="form-control" id="addCategoryName" placeholder="A Name.." required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>              
-            </div>  
-
+            <h3>Add a category</h3>
+            <form method="post" role="form">
+                <div class="form-group">
+                    <label for="addCategoryName">Name:</label>
+                    <input type="text" class="form-control" id="addCategoryName" placeholder="A Name.." required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>              
         </div>
         
         <div class="col-md-6">
             <h3>Remove Stuff</h3>
-            <form method="post" action="" name="removeQuestions" id="removeQuestions">
+            <form method="post" role="form">
                 <div class="form-group">
                     <label for="deleteQuestion">Remove Question:</label>
                     <select id="deleteQuestion" class="form-control">
@@ -84,8 +81,9 @@
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
 
-            <form method="post" name="removeCategory" id="removeCategory">
+            <form method="post" role="form">
                 <div class="form-group">
+                    <br>
                     <label for="deleteCategory">Remove Category:</label>
                     <select id="deleteCategory" class="form-control">
                         <option value="0"><?php if(!isset($categories))print('No Categories Found..'); else print('Choose Category');?> </option>
