@@ -45,14 +45,7 @@ function getCategories()
 
 function saveCategory($data)
 {
-	if(!is_array($data))
-	{
-		return false;
-	}
-	
 	global $db;
-	
-	extract($data);
 
 	$statement = $db->prepare("INSERT INTO categories(title) 
 							   VALUES(:name)");							 
