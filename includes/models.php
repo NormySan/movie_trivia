@@ -43,15 +43,13 @@ function getCategories()
 	return $categories;
 }
 
-function saveCategory($data)
+function saveCategory($menuAddName)
 {
 	global $db;
 
 	$statement = $db->prepare("INSERT INTO categories(title) 
 							   VALUES(:name)");							 
 	
-	$statement->execute(array('name'=>$data['menuAddName']));
-
-	return $db->lastInsertId();
+	$statement->execute(array('name'=>$menuAddName);
 }
 
