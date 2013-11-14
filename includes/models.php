@@ -54,22 +54,18 @@ function saveCategory($menuAddName)
 }
 
 // Returns all questions with answers
-function getQuestions($options = array())
+function getQuestions()
 {
 	global $db;
 
 	// Create an empty questions array so that we always return an empty
 	// array even if there was no data fetched from the database.
 	$questions = array();
-
-	// Empty array for andswers
-	$answers = array();
-
-	// Empty array for ids
-	$ids = array();
+	
+	$query = 'SELECT * FROM questions';
 
 	// The database query to get the questions.
-	$results = $db->query('SELECT * FROM questions');
+	$results = $db->query($query);
 
 	// Do a while loop to fetch each resulting row in the query.
 	while ($row = $results->fetch(PDO::FETCH_ASSOC))
@@ -77,6 +73,23 @@ function getQuestions($options = array())
 		// Push each result row into the questions array.
 		$questions[] = $row;
 	}
+
+	// Get answers for the questions
+	$questions = getQuestionAnswers($questions);
+
+	return $questions;
+}
+
+// Appends answers to the supplied questions
+function getQuestionAnswers($questions = array())
+{
+	global $db;
+
+	// Empty array for andswers
+	$answers = array();
+
+	// Empty array for ids
+	$ids = array();
 
 	// Loop over the questions and get their ids
 	foreach ($questions as $question)
@@ -114,17 +127,39 @@ function getQuestions($options = array())
 	return $questions;
 }
 
-function getQuestion($id){
-	GLOBAL $db;
+// Returns a single question based on its id.
+function getQuestion($id) {
+	global $db;
 
-		$statement = $db->query('SELECT q.title, ans.title FROM questions AS q'.
-								'INNER JOIN questions_answers qa ON qa.id = q.id
-								 INNER JOIN answers ans ON ans.id = qa.id
-								 WHERE q.id = $id');
+	// Make sure the entered value is an integer.
+	$id = (int) $id;
 
-		$statement->execute();
-		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+	// Empty array for the question.
+	$question = array();
 
-		return $results;
-	}
+	// Prepare the db query.
+	$statement = $db->prepare('SELECT * FROM questions WHERE id = :id');
 
+	// Execute query statement with the supplied id.
+	$statement->execute(array('id' => $id));
+
+	// Since we only expect to get one result we don't loop over the results.
+	$question[] = $statement->fetch(PDO::FETCH_ASSOC);
+
+	// Gett answers for the questions
+	$question = getQuestionAnswers($question);
+
+	/* Part of the old query.
+	$statement = $db->query("SELECT q.title, ans.title FROM questions AS q
+							 INNER JOIN questions_answers qa ON qa.id = q.id
+							 INNER JOIN answers ans ON ans.id = qa.id
+							 WHERE q.id = $id");
+
+	$statement->execute();
+	$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+	*/
+
+	// We should only have one result in the array so we only return the first
+	// question in the array.
+	return $question[0];
+}
