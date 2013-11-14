@@ -54,35 +54,62 @@ function saveCategory($menuAddName)
 }
 
 // Returns all questions with answers
-function getQuestions()
+function getQuestions($options = array())
 {
 	global $db;
 
+	// Create an empty questions array so that we always return an empty
+	// array even if there was no data fetched from the database.
 	$questions = array();
 
-	$results = $db->query('SELECT title FROM questions, answers');
+	// Empty array for andswers
+	$answers = array();
 
+	// Empty array for ids
+	$ids = array();
+
+	// The database query to get the questions.
+	$results = $db->query('SELECT * FROM questions');
+
+	// Do a while loop to fetch each resulting row in the query.
 	while ($row = $results->fetch(PDO::FETCH_ASSOC))
 	{
+		// Push each result row into the questions array.
 		$questions[] = $row;
 	}
 
-	return $questions;
-
-
-}
-
-function getQuestion($id){
-	GLOBAL $db;
-
-		$statement = $db->query('SELECT q.title, ans.title FROM questions AS q'.
-								'INNER JOIN questions_answers qa ON qa.id = q.id
-								 INNER JOIN answers ans ON ans.id = qa.id
-								 WHERE q.id = $id');
-
-		$statement->execute();
-		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-		return $results;
+	// Loop over the questions and get their ids
+	foreach ($questions as $question)
+	{
+		// Push each question id into the ids array
+		$ids[] = $question['id'];
 	}
 
+	// Concatenate all questions ids into a string of ids to be used in the query
+	$ids = implode(',', $ids);
+
+	// The database query to fetch answers.
+	$statement = $db->query("SELECT * FROM questions_answers qa
+						   	 LEFT JOIN answers a ON a.id = qa.answer_id
+						   	 WHERE qa.question_id IN ($ids)");
+
+	// Get each answer and push it onto the answers array
+	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		$answers[] = $row;
+	}
+
+	// Push each answer into the questions array
+	foreach ($questions as $index => $question)
+	{
+		foreach ($answers as $answer)
+		{
+			if ($answer['question_id'] == $question['id'])
+			{
+				$questions[$index]['answers'][] = $answer;
+			}
+		}
+	}
+
+	return $questions;
+}
