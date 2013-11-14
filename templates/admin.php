@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 
-    <!--|  LOOKS REALLY BAD WITHOUT BOOTSTRAP INCLUDED =)  |-->
-
 <div class="container">           
     <div class="page-header">
         <img src="img/admin_logo.jpg" class="img-responsive" alt="admin logo">
@@ -11,6 +9,7 @@
         </small>
         </h1>
     </div>
+    
     <div class="row">                          
         <div class="col-md-6">
             <h3>Add a Question</h3>
@@ -55,10 +54,14 @@
                     <div class="form-group">
                         <label for="addToCategory">Add to Category:</label>
                         <select id="addToCategory" class="form-control">
-                            <option value="0"><?php if(!isset($categories))print('No Categories Found..'); else print('Choose Category');?> </option>
-                            <?php foreach($categories as $menuItem): ?>
-                            <option value="<?php print($menuItem['id'])?>"><?php print($menuItem['name']);?> </option>
-                            <?php endforeach;?>
+                            <?php if(!isset($categories)):?> 
+                                <option>No Categories Found..</option> 
+                            <?php else:?>
+                                <option>Choose Category</option>
+                                <?php foreach($categories as $menuItem): ?>
+                                    <option value="<?php print($menuItem['id'])?>"><?php print($menuItem['name']);?> </option>
+                                <?php endforeach;?>
+                            <?php endif;?>
                         </select>
                     </div>
                 </div>                    
@@ -74,17 +77,21 @@
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>              
         </div>
-        
+      
         <div class="col-md-6">
             <h3>Remove Stuff</h3>
             <form method="post" role="form">
                 <div class="form-group">
                     <label for="deleteQuestion">Remove Question:</label>
                     <select id="deleteQuestion" class="form-control">
-                        <option value="0"><?php if(!isset($questions))print('No Questions Found..'); else print('Choose Question');?> </option>
-                        <?php foreach($questions as $menuItem): ?>
-                        <option value="<?php print($menuItem['id'])?>"><?php print($menuItem['name']);?> </option>
-                        <?php endforeach;?>
+                        <?php if(!isset($questions)):?> 
+                            <option>No Questions Found..</option> 
+                        <?php else:?>
+                            <option>Choose Question</option>
+                            <?php foreach($questions as $menuItem): ?>
+                                <option value="<?php print($menuItem['id'])?>"><?php print($menuItem['name']);?> </option>
+                            <?php endforeach;?>
+                        <?php endif;?>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -95,10 +102,14 @@
                     <br>
                     <label for="deleteCategory">Remove Category:</label>
                     <select id="deleteCategory" class="form-control">
-                        <option value="0"><?php if(!isset($categories))print('No Categories Found..'); else print('Choose Category');?> </option>
-                        <?php foreach($categories as $menuItem): ?>
-                        <option value="<?php print($menuItem['id'])?>"><?php print($menuItem['name']);?> </option>
-                        <?php endforeach;?>
+                        <?php if(!isset($categories)):?> 
+                            <option>No Categories Found..</option> 
+                        <?php else:?>
+                            <option>Choose Category</option>
+                            <?php foreach($categories as $menuItem): ?>
+                                <option value="<?php print($menuItem['id'])?>"><?php print($menuItem['name']);?> </option>
+                            <?php endforeach;?>
+                        <?php endif;?>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-danger">Delete</button>
