@@ -78,7 +78,7 @@ function getQuestion($id){
 		$statement = $db->query('SELECT q.title, ans.title FROM questions AS q'.
 								'INNER JOIN questions_answers qa ON qa.id = q.id
 								 INNER JOIN answers ans ON ans.id = qa.id
-								 WHERE q.id = 1'.; 
+								 WHERE q.id = $id');
 
 		$statement->execute();
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
