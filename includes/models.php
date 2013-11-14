@@ -72,26 +72,17 @@ function getQuestions()
 
 }
 
-// Returns a single question specified by its id with the answers
-function getQuestion($id)
-{
+function getQuestion($id){
+	GLOBAL $db;
 
-}
+		$statement = $db->query('SELECT q.title, ans.title FROM questions AS q'.
+								'INNER JOIN questions_answers qa ON qa.id = q.id
+								 INNER JOIN answers ans ON ans.id = qa.id
+								 WHERE q.id = 1'.; 
 
-// Returns a specified amount of random questions based on a category
-function getRandomQuestion($category = null, $limit = 10)
-{
+		$statement->execute();
+		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-}
+		return $results;
+	}
 
-// Updates a specific category with new values
-function updateCategory($id, $data)
-{
-
-}
-
-// Updates specific question
-function updateQuestion($id, $data)
-{
-
-}
