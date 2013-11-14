@@ -14,29 +14,40 @@
     <div class="row">                          
         <div class="col-md-6">
             <h3>Add a Question</h3>
-            <form role="form" method="post">
-                
+            <form role="form" method="post">  
                 <div class="form-group">
                     <label for="question">Question:</label>
                     <textarea class="form-control" rows="4" cols="50" id="question" placeholder="What is the meaning of life.." required></textarea>
                 </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="answer1">Answer 1:</label>
-                            <input type="text" class="form-control" id="answer1" placeholder="The Question.." required>
-                        </div>                   
-                        <div class="form-group">
-                            <label for="answer2">Answer 2:</label>
-                            <input type="text" class="form-control" id="answer2" placeholder="The Answers." required>
-                        </div> 
-                    </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="answer1">Answer 1:</label>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="correct1">Correct</label>
+                        </div>
+                        <input type="text" class="form-control" id="answer1" placeholder="The Answers.." required>
+                    </div>                   
+                    <div class="form-group">
+                        <label for="answer2">Answer 2:</label>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="correct2">Correct</label>
+                        </div>
+                        <input type="text" class="form-control" id="answer2" placeholder="The Answers.." required>
+                    </div> 
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="answer3">Answer 3:</label>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="correct3">Correct</label>
+                        </div>
                         <input type="text" class="form-control" id="answer3" placeholder="The Answers.." required>
                     </div>
                     <div class="form-group">
                         <label for="answer4">Answer 4:</label>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="correct4">Correct</label>
+                        </div>
                         <input type="text" class="form-control" id="answer4" placeholder="The Answers.." required>
                     </div>
                 </div>
