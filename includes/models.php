@@ -114,10 +114,7 @@ function getQuestionAnswers($questions = array())
 	// Concatenate all questions ids into a string of ids to be used in the query
 	$ids = implode(',', $ids);
 
-	// The database query to fetch answers.
-	$statement = $db->query("SELECT * FROM questions_answers qa
-						   	 LEFT JOIN answers a ON a.id = qa.answer_id
-						   	 WHERE qa.question_id IN ($ids)");
+
 
 	// Get each answer and push it onto the answers array
 	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
