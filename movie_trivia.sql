@@ -1,139 +1,132 @@
--- phpMyAdmin SQL Dump
--- version 4.0.4.1
--- http://www.phpmyadmin.net
---
--- Värd: 127.0.0.1
--- Skapad: 13 nov 2013 kl 12:15
--- Serverversion: 5.5.32
--- PHP-version: 5.4.16
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4096
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# Host: 127.0.0.1 (MySQL 5.5.33)
+# Database: movie_trivia
+# Generation Time: 2013-11-14 12:51:06 +0000
+# ************************************************************
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Databas: `movie_trivia`
---
-CREATE DATABASE IF NOT EXISTS `movie_trivia` DEFAULT CHARACTER SET utf8 COLLATE utf8_swedish_ci;
-USE `movie_trivia`;
 
--- --------------------------------------------------------
+# Dump of table answers
+# ------------------------------------------------------------
 
---
--- Tabellstruktur `answers`
---
+DROP TABLE IF EXISTS `answers`;
 
-CREATE TABLE IF NOT EXISTS `answers` (
+CREATE TABLE `answers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(254) COLLATE utf8_swedish_ci NOT NULL,
   `correct` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
---
--- Dumpning av Data i tabell `answers`
---
+LOCK TABLES `answers` WRITE;
+/*!40000 ALTER TABLE `answers` DISABLE KEYS */;
 
-INSERT INTO `answers` (`id`, `title`, `correct`) VALUES
-(1, 'T1000 as played by Arnold Schwartzenegger', 1),
-(3, 'Robert Deniro', 1),
-(4, 'John Travolta', 1);
+INSERT INTO `answers` (`id`, `title`, `correct`)
+VALUES
+	(1,'T1000 as played by Arnold Schwartzenegger',1),
+	(3,'Robert Deniro',1),
+	(4,'John Travolta',1);
 
--- --------------------------------------------------------
+/*!40000 ALTER TABLE `answers` ENABLE KEYS */;
+UNLOCK TABLES;
 
---
--- Tabellstruktur `categories`
---
 
-CREATE TABLE IF NOT EXISTS `categories` (
+# Dump of table categories
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `categories`;
+
+CREATE TABLE `categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(254) COLLATE utf8_swedish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
---
--- Dumpning av Data i tabell `categories`
---
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 
-INSERT INTO `categories` (`id`, `title`) VALUES
-(1, 'Costume Drama'),
-(2, 'Action'),
-(3, 'Drama'),
-(4, 'Comedy'),
-(5, 'Horror'),
-(6, 'Sci-Fi'),
-(7, 'Fantasy');
+INSERT INTO `categories` (`id`, `title`)
+VALUES
+	(1,'Costume Drama'),
+	(2,'Action'),
+	(3,'Drama'),
+	(4,'Comedy'),
+	(5,'Horror'),
+	(6,'Sci-Fi'),
+	(7,'Fantasy');
 
--- --------------------------------------------------------
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
 
---
--- Tabellstruktur `questions`
---
 
-CREATE TABLE IF NOT EXISTS `questions` (
+# Dump of table questions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `questions`;
+
+CREATE TABLE `questions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
   `title` varchar(254) COLLATE utf8_swedish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
---
--- Dumpning av Data i tabell `questions`
---
+LOCK TABLES `questions` WRITE;
+/*!40000 ALTER TABLE `questions` DISABLE KEYS */;
 
-INSERT INTO `questions` (`id`, `title`) VALUES
-(1, 'Which famous character said "I''ll be back".'),
-(2, 'Who played the main character in Taxi Driver.'),
-(3, 'Who played the male lead in Grease.');
+INSERT INTO `questions` (`id`, `category_id`, `title`)
+VALUES
+	(1,2,'Which famous character said \"I\'ll be back\".'),
+	(2,3,'Who played the main character in Taxi Driver.'),
+	(3,2,'Who played the male lead in Grease.');
 
--- --------------------------------------------------------
+/*!40000 ALTER TABLE `questions` ENABLE KEYS */;
+UNLOCK TABLES;
 
---
--- Tabellstruktur `questions_answers`
---
 
-CREATE TABLE IF NOT EXISTS `questions_answers` (
+# Dump of table questions_answers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `questions_answers`;
+
+CREATE TABLE `questions_answers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `question_id` int(11) NOT NULL,
   `answer_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
---
--- Dumpning av Data i tabell `questions_answers`
---
+LOCK TABLES `questions_answers` WRITE;
+/*!40000 ALTER TABLE `questions_answers` DISABLE KEYS */;
 
-INSERT INTO `questions_answers` (`id`, `question_id`, `answer_id`) VALUES
-(1, 1, 1),
-(2, 2, 3),
-(3, 3, 4);
+INSERT INTO `questions_answers` (`id`, `question_id`, `answer_id`)
+VALUES
+	(1,1,1),
+	(2,2,3),
+	(3,3,4);
 
--- --------------------------------------------------------
+/*!40000 ALTER TABLE `questions_answers` ENABLE KEYS */;
+UNLOCK TABLES;
 
---
--- Tabellstruktur `question_categories`
---
 
-CREATE TABLE IF NOT EXISTS `question_categories` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) NOT NULL,
-  `question_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci AUTO_INCREMENT=4 ;
 
---
--- Dumpning av Data i tabell `question_categories`
---
-
-INSERT INTO `question_categories` (`id`, `category_id`, `question_id`) VALUES
-(1, 2, 1),
-(2, 3, 2),
-(3, 2, 3);
-
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

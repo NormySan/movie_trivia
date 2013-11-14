@@ -54,21 +54,34 @@ function saveCategory($menuAddName)
 }
 
 // Returns all questions with answers
-function getQuestions()
+function getQuestions($category = null)
 {
 	global $db;
 
 	// Create an empty questions array so that we always return an empty
 	// array even if there was no data fetched from the database.
 	$questions = array();
-	
-	$query = 'SELECT * FROM questions';
 
-	// The database query to get the questions.
-	$results = $db->query($query);
+	// If the category variable is null we only perform a simple query, if not
+	// we perform a slightly more complex query prepared statement.
+	if (is_null($category))
+	{
+		$statement = $db->query('SELECT * FROM questions');
+	}
+	else
+	{
+		// Lets make sure the category is an integer.
+		$category = (int) $category;
+
+		// Prepare the db query statement.
+		$statement = $db->prepare('SELECT * FROM questions WHERE category_id = :category_id');
+
+		// Execute the prepared statement and add the placeholder value
+		$statement->execute(array('category_id' => $category));
+	}
 
 	// Do a while loop to fetch each resulting row in the query.
-	while ($row = $results->fetch(PDO::FETCH_ASSOC))
+	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
 	{
 		// Push each result row into the questions array.
 		$questions[] = $row;
