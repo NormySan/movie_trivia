@@ -1,7 +1,9 @@
 Movie Trivia
 ============
 
-För att kunna köra applikationen krävs en config fil som ska ligga i includes och det ska heta config.php
+För att kunna köra applikationen krävs en config fil som ska ligga i includes och heta config.php.
+
+Här är koden som ska skrivas in i config filen, SITE_PATH ska vara adressen till där index.php ligger baserat utifrån webbrooten (htdocs).
 
 ```
 define('SITE_TITLE', 'Movie Trivia');
