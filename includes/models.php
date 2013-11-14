@@ -43,6 +43,7 @@ function getCategories()
 	return $categories;
 }
 
+//Saves a question to database
 function saveCategory($menuAddName)
 {
 	global $db;
@@ -51,6 +52,57 @@ function saveCategory($menuAddName)
 							   VALUES(:name)");							 
 	
 	$statement->execute(array('name'=>$menuAddName));
+}
+//saves a Question To Database
+function saveQuestion($data)
+{
+	// Tell the function that we want to use the $db global.	
+	global $db;
+
+	//Prepare to insert the question into questions with the categoryId
+	$statement = $db->prepare("INSERT INTO questions(category_id,title) 
+							   VALUES(:category_id,:title)");
+
+	//Insert it
+	$statement->execute(array('category_id'=>$data['addToCategory'],
+							  'title'=> $data['question']));
+	
+	//gets the current row Id for the question so can give the answers below something to belong to.
+	$questionId=$db->lastInsertId();
+
+	//Prepare the the insertion of answer 1
+	$statement = $db->prepare("INSERT INTO answers(id,title,correct) 
+							   VALUES(:id,:title,correct)");
+	
+	//Insert Answer1
+	$statement->execute(array('id' => $questionId,
+							  'title'=> $data['answer1'],
+							  'correct' => $data['correct']));
+	
+	//Prepare the the insertion of answer 2
+	$statement = $db->prepare("INSERT INTO answers(id,title,correct) 
+							   VALUES(:id,:title,correct)");
+	
+	//Insert Answer2	
+	$statement->execute(array('id' => $questionId,
+							  'title'=> $data['answer2'],
+							  'correct' => $data['correct']));
+	
+	//Prepare the the insertion of answer 3
+	$statement = $db->prepare("INSERT INTO answers(id,title,correct) 
+							   VALUES(:id,:title,correct)");
+	
+	//Insert Answer3
+	$statement->execute(array('id' => $questionId,
+							  'title'=> $data['answer3'],
+							  'correct' => $data['correct']));		
+	//Prepare the the insertion of answer 4
+	$statement = $db->prepare("INSERT INTO answers(id,title,correct) 
+							   VALUES(:id,:title,correct)");
+	//Insert Answer4
+	$statement->execute(array('id' => $questionId,
+							  'title'=> $data['answer4'],
+							  'correct' => $data['correct']));
 }
 
 // Returns all questions with answers
