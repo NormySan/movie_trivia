@@ -15,7 +15,7 @@ include 'includes.php';
 $routes = array(
 	'/' 				=> 'HomeController',
 	'/admin' 			=> 'AdminController',
-	'/admin/category' 	=> 'AdminCategoryController',
+	'/admin/categories' => 'AdminCategoriesController',
 	'/questions' 		=> 'QuestionsController',
 	'/categories' 		=> 'CategoriesController'
 );

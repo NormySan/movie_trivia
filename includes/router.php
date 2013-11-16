@@ -23,6 +23,11 @@ function getRouteArray()
 	// Get the current route as a string from the getRoute function.
 	$route = getRoute();
 
+	// Remove the first directory separator so we dont get an array with
+	// an empty string as the first value in the route array when we
+	// explode it.
+	$route = ltrim($route, '/');
+
 	// Divide the route into separate parts divided by the directory seperator
 	// as the delimiter. The DIRECTORY_SEPARATOR is the same as typing '/' or
 	// '\' depending on the current filesystem.
@@ -34,7 +39,7 @@ function getRouteArray()
 /**
  * Gets a specific segment from the current route staring from 0
  */
-function getRouteSegment(int $number)
+function getRouteSegment($number)
 {
 	// Get the current route as an array
 	$route = getRouteArray();

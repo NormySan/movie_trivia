@@ -46,19 +46,26 @@ function CategoriesController()
 }
 
 /**
- * Admin Controllers
+ * Admin controller
  */
 function AdminController()
 {
 	return getTemplate('admin');
 }
 
-function AdminCategoryController($data)
+/**
+ * Admin category controller
+ */
+function AdminCategoriesController()
 {
 	if (isset($_POST) && count($_POST))
 	{
-		saveCategory($data);
+		saveCategory($_POST);
+
+		redirect('admin');
 	}
 
-	redirect('admin');
+	$data['categories'] = getCategories();
+
+	return getTemplate('admin/categories', $data);
 }
