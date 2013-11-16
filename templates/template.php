@@ -4,7 +4,8 @@
         <title><?php echo SITE_TITLE; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Include CSS files -->
-        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="<?php echo url('css/bootstrap.css'); ?>" rel="stylesheet">
+        <link href="<?php echo url('css/style.css'); ?>" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,6 +21,15 @@
         <script src="js/app.js"></script>
     </head>
     <body>
+        <!-- Admin Menu -->
+        <?php if (getRouteSegment(0) == 'admin'): ?>
+            <?php echo getTemplate('admin/menu'); ?>
+        <?php endif; ?>
+
+        <!-- Page Content -->
         <?php echo $content; ?>
+
+        <!-- Trivia playing board -->
+        <div id="trivia-template"></div>
     </body>
 </html>
