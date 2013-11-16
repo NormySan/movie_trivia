@@ -5,7 +5,7 @@
  */
 function url($string)
 {
-	return SITE_PATH.$string;
+	return SITE_PATH.'/'.$string;
 }
 
 /**
