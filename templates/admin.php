@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <div class="container">           
     <div class="page-header">
         <img src="img/admin_logo.jpg" class="img-responsive" alt="admin logo">
