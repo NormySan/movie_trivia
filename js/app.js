@@ -1,6 +1,5 @@
 /* Movie Trivia Application | Javascript file */
 
-/*
 jQuery(function($) {
 
 	var categories = {}, 
@@ -52,4 +51,3 @@ jQuery(function($) {
 	// Initialize the game
 	init();
 })
-*/
