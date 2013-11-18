@@ -33,7 +33,7 @@ function getCategories()
 
 	$categories = array();
 
-	$results = $db->query('SELECT * FROM categories');
+	$results = $db->query('SELECT * FROM categories ORDER BY title ASC');
 
 	while ($row = $results->fetch(PDO::FETCH_ASSOC))
 	{
@@ -43,18 +43,39 @@ function getCategories()
 	return $categories;
 }
 
-//Saves a question to database
-function saveCategory($menuAddName)
+// Saves a category to the database
+function saveCategory($data)
 {
 	global $db;
 
-	$statement = $db->prepare("INSERT INTO categories(title) 
-							   VALUES(:name)");							 
+	$statement = $db->prepare('INSERT INTO categories(title) VALUES (:title)');							 
 	
-	$statement->execute(array('name'=>$menuAddName));
+	$statement->execute(array('title' => $data['title']));
 }
+
+// Removes the specified category.
+function removeCategory($id)
+{
+	global $db;
+
+	// Prepare the query to fetch the category.
+	$statement = $db->prepare('SELECT * FROM categories WHERE id = :id');
+
+	$statement->execute(array('id' => $id));
+
+	// Fetch the resulting category.
+	$category = $statement->fetch(PDO::FETCH_ASSOC);
+
+	if (empty($category)) return false;
+
+	// Remove the category
+	$statement = $db->prepare('DELETE FROM categories WHERE id = :id');
+
+	$statement->execute(array('id' => $id));
+}
+
 //saves a Question To Database
-function saveQuestion($data)
+function saveQuestionOld($data)
 {
 	// Tell the function that we want to use the $db global.	
 	global $db;
@@ -105,6 +126,50 @@ function saveQuestion($data)
 							  'correct' => $data['correct']));
 }
 
+// Saves a new question to the database
+function saveQuestion($data)
+{
+	global $db;
+
+	// First lets save the question.
+	$question = $db->prepare('INSERT INTO questions (title, category_id) VALUES (:title, :category_id)');
+
+	// Execute the prepared question statement.
+	$question->execute(array(
+		'title' 		=> $data['title'],
+		'category_id' 	=> $data['category']
+	));
+
+	// Get the id of the inserted question.
+	$question_id = $db->lastInsertId('id');
+
+	// The correct answer.
+	$correct_answer = $data['correct-answer'];
+
+	// Insert each of the answers.
+	foreach ($data['answers'] as $key => $answer)
+	{
+		// Always assume that the answer is not correct.
+		$correct = 0;
+
+		// Check if the current answer is the correct one.
+		if ($correct_answer == ($key + 1))
+		{
+			$correct = 1;
+		}
+
+		// Prepare our database query.
+		$statement = $db->prepare('INSERT INTO answers (title, question_id, correct) VALUES (:title, :question_id, :correct)');
+
+		// Execute the prepared statement with values.
+		$statement->execute(array(
+			'title' 		=> $answer,
+			'question_id' 	=> $question_id,
+			'correct'		=> $correct
+		));
+	}
+}
+
 // Returns all questions with answers
 function getQuestions($category = null)
 {
@@ -150,31 +215,37 @@ function getQuestionAnswers($questions = array())
 {
 	global $db;
 
-	// Empty array for andswers
+	// Empty array for andswers.
 	$answers = array();
 
-	// Empty array for ids
+	// Empty array for ids.
 	$ids = array();
 
-	// Loop over the questions and get their ids
+	// Loop over the questions and get their ids.
 	foreach ($questions as $question)
 	{
-		// Push each question id into the ids array
+		// Push each question id into the ids array.
 		$ids[] = $question['id'];
 	}
 
-	// Concatenate all questions ids into a string of ids to be used in the query
+	// Concatenate all questions ids into a string of ids to be used in the query.
 	$ids = implode(',', $ids);
 
+	// Prepare the db query.
+	$statement = $db->prepare('SELECT * FROM answers WHERE question_id IN (:ids)');
 
+	// Execute the prepared statement.
+	$statement->execute(array('ids' => $ids));
 
-	// Get each answer and push it onto the answers array
+	// Get each answer and push it onto the answers array.
 	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
 	{
 		$answers[] = $row;
 	}
 
 	// Push each answer into the questions array
+	// NOTE! Switch questions loop with answers loop. Should be better performance wise
+	// even if it really shouldnt matter that much right now.
 	foreach ($questions as $index => $question)
 	{
 		foreach ($answers as $answer)
@@ -211,17 +282,37 @@ function getQuestion($id) {
 	// Gett answers for the questions
 	$question = getQuestionAnswers($question);
 
-	/* Part of the old query.
-	$statement = $db->query("SELECT q.title, ans.title FROM questions AS q
-							 INNER JOIN questions_answers qa ON qa.id = q.id
-							 INNER JOIN answers ans ON ans.id = qa.id
-							 WHERE q.id = $id");
-
-	$statement->execute();
-	$results = $statement->fetchAll(PDO::FETCH_ASSOC);
-	*/
-
 	// We should only have one result in the array so we only return the first
 	// question in the array.
 	return $question[0];
+}
+
+// Removes the specified question
+function removeQuestion($id)
+{
+	global $db;
+
+	// Prepare a statement to fetch the question we want to remove.
+	$statement = $db->prepare('SELECT * FROM questions WHERE id = :id');
+
+	// Execute the prepared statement.
+	$statement->execute(array('id' => $id));
+
+	// No need to do a loop to fetch the data since we only expect to get a single result.
+	$question = $statement->fetch(PDO::FETCH_ASSOC);
+
+	// If the result in the question variable is empty it does not exist so we just return false.
+	if (empty($question)) return false;
+
+	// Prepare statement to remove the question.
+	$statement = $db->prepare('DELETE FROM questions WHERE id = :id');
+
+	// Execute the query to remove the question.
+	$statement->execute(array('id' => $id));
+
+	// Prepare statement to remove answers for this category.
+	$statement = $db->prepare('DELETE FROM answers WHERE question_id = :id');
+
+	// Execute the prepared statement to remove answers.
+	$statement->execute(array('id' => $id));
 }
