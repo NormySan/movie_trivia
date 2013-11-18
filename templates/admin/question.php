@@ -8,6 +8,7 @@
 	</div>
 	<div class="row">
 		<form action="<?php echo url('admin/questions/update?id=' . $question['id']); ?>" method="post">
+			<input type="hidden" name="id" value="<?php echo $question['id'] ?>">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="form-group">
@@ -31,22 +32,10 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="correct-answer">Correct answer</label>
-								<select name="correct-answer" id="correct-answer" class="form-control" required>
-									<option value="0" disabled>Choose the correct answer</option>
-									<option value="1">Answer 1</option>
-									<option value="2">Answer 2</option>
-									<option value="3">Answer 3</option>
-									<option value="4">Answer 4</option>
-								</select>
-							</div>
-						</div>
 					</div>
 					<h4>Answers</h4>
 					<div class="row">
-						<?php foreach ($question['answers'] as $answer): ?>	
+						<?php foreach ($question['answers'] as $key => $answer): ?>	
 							<div class="col-md-12">
 								<div class="row">
 									<div class="col-sm-10">
@@ -58,7 +47,7 @@
 										<div class="form-group">
 											<div class="radio">
 												<label for="">
-													<input type="radio" value="1" name="correct" <?php if ($answer['correct'] == 1) echo 'checked'; ?>>Correct?
+													<input type="radio" value="<?php echo ($key + 1); ?>" name="correct" <?php if ($answer['correct'] == 1) echo 'checked'; ?>>Correct?
 												</label>
 											</div>
 										</div>
