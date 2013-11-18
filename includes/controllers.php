@@ -81,7 +81,7 @@ function AdminRemoveCategoryController()
 {
 	if (isset($_GET['id']) && is_numeric($_GET['id']))
 	{
-		
+
 	}
 
 	redirect('admin/categories');
@@ -124,6 +124,15 @@ function AdminQuestionsController()
 
 	// Return the admin questions template.
 	return getTemplate('admin/questions', $data);
+}
+
+/**
+ * Admin update question
+ */
+function AdminUpdateQuestionController()
+{
+	print_r($_POST);
+	exit;
 }
 
 /**
