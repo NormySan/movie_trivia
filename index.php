@@ -19,6 +19,7 @@ $routes = array(
 	'/admin/categories/remove'	=> 'AdminRemoveCategoryController',
 	'/admin/questions'			=> 'AdminQuestionsController',
 	'/admin/questions/remove'	=> 'AdminRemoveQuestionController',
+	'/admin/questions/update'	=> 'AdminUpdateQuestionController',
 	'/questions' 				=> 'QuestionsController',
 	'/categories' 				=> 'CategoriesController'
 );
