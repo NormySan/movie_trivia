@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.33)
 # Database: movie_trivia
-# Generation Time: 2013-11-14 12:51:06 +0000
+# Generation Time: 2013-11-18 08:38:17 +0000
 # ************************************************************
 
 
@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `answers`;
 
 CREATE TABLE `answers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
   `title` varchar(254) COLLATE utf8_swedish_ci NOT NULL,
   `correct` int(1) NOT NULL,
   PRIMARY KEY (`id`)
@@ -35,11 +36,12 @@ CREATE TABLE `answers` (
 LOCK TABLES `answers` WRITE;
 /*!40000 ALTER TABLE `answers` DISABLE KEYS */;
 
-INSERT INTO `answers` (`id`, `title`, `correct`)
+INSERT INTO `answers` (`id`, `question_id`, `title`, `correct`)
 VALUES
-	(1,'T1000 as played by Arnold Schwartzenegger',1),
-	(3,'Robert Deniro',1),
-	(4,'John Travolta',1);
+	(1,1,'T1000 as played by Arnold Schwartzenegger',1),
+	(3,2,'Robert Deniro',1),
+	(4,3,'John Travolta',1),
+	(5,1,'Sonny the robot in I, Robot.',0);
 
 /*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -67,7 +69,8 @@ VALUES
 	(4,'Comedy'),
 	(5,'Horror'),
 	(6,'Sci-Fi'),
-	(7,'Fantasy');
+	(7,'Fantasy'),
+	(8,'Anime');
 
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -95,31 +98,6 @@ VALUES
 	(3,2,'Who played the male lead in Grease.');
 
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table questions_answers
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `questions_answers`;
-
-CREATE TABLE `questions_answers` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `question_id` int(11) NOT NULL,
-  `answer_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
-
-LOCK TABLES `questions_answers` WRITE;
-/*!40000 ALTER TABLE `questions_answers` DISABLE KEYS */;
-
-INSERT INTO `questions_answers` (`id`, `question_id`, `answer_id`)
-VALUES
-	(1,1,1),
-	(2,2,3),
-	(3,3,4);
-
-/*!40000 ALTER TABLE `questions_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
