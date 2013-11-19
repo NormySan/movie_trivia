@@ -131,8 +131,12 @@ function AdminQuestionsController()
  */
 function AdminUpdateQuestionController()
 {
-	print_r($_POST);
-	exit;
+	if($_POST && count($_POST))
+	{
+		//print_r($_POST);
+		updateQuestionCategoryAnswers($_POST);
+	}
+	redirect('admin/questions');
 }
 
 /**

@@ -126,6 +126,51 @@ function saveQuestionOld($data)
 							  'correct' => $data['correct']));
 }
 
+function updateQuestionCategoryAnswers($data)
+{
+	global $db;
+
+	// First lets update the Question title and category.
+	$statement = $db->prepare('UPDATE questions 
+							   SET title = :title,
+							  	  category_id = :category_id
+							   WHERE id = :id');
+	$statement->execute(array(
+		'title' 		=> $data['title'],
+		'category_id' 	=> $data['category'],
+		'id'			=> $data['id']
+	));
+	
+	//Delete old answers
+	$statement=$db->prepare('DELETE FROM answers 
+					  		 WHERE question_id = :question_id');	
+	
+	$statement->execute(array('question_id' => $data['id']));
+			 			
+			
+	//Then Insert updated Answers Loopy Style
+	foreach ($data['answers'] as $key => $answer) 
+	{
+
+		$correct=0;
+		
+		//If this current answer is correct then $correct is Correct too!
+		if ($key == $data['correct']-1)
+		{
+			$correct=1;
+		}
+		
+		//Updates the current answer
+		$statement = $db->prepare('INSERT INTO answers(question_id,title,correct)
+							  	   VALUES (:question_id,:title,:correct)');
+							  	   
+		$statement->execute(array(
+			'question_id'   => $data['id'],
+			'title' 		=> $answer,
+			'correct' 		=> $correct));		
+	}
+}
+
 // Saves a new question to the database
 function saveQuestion($data)
 {
@@ -151,9 +196,9 @@ function saveQuestion($data)
 	{
 		// Always assume that the answer is not correct.
 		$correct = 0;
-
+	
 		// Check if the current answer is the correct one.
-		if ($correct_answer == ($key + 1))
+		if ($data['correct-answer'] == ($key + 1))
 		{
 			$correct = 1;
 		}
