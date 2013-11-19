@@ -25,10 +25,10 @@ jQuery(function($) {
 				for (var i = 0; i < categories.length; i++)
 				{
 					var category = categories[i];
-					var html =
-						'<div class="row"><div class="col-md-12">' +
-						'<button class="btn btn-default btn-lg btn-block category" data-id="' + category.id + '">' + category.title + '</button>' +
-						'</div></div>';
+					var html = 
+						'<div class="col-md-6">' +
+						'<button class="btn btn-primary btn-lg btn-block category" data-id="' + category.id + '">' + category.title + '</button>' +
+						'</div>';
 
 					$('#categories').append(html);
 				}
