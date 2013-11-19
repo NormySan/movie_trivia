@@ -2,6 +2,7 @@
 
 #site-wrapper {
 	margin-top: 40px;
+	background-color: #f5f5f5;
 }
 
 button.category {
@@ -10,4 +11,12 @@ button.category {
 
 h3.category-title {
 	margin-bottom: 40px;
+}
+
+.box-shadow{
+	box-shadow: 0 2px 0 0 #555;
+}
+
+.box-shadow:hover{
+	box-shadow: 0 -1px 0 0 #555;
 }
