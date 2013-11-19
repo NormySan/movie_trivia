@@ -4,6 +4,7 @@
  */
 
 //Returns 10 random questions and answers.
+//Please test.
 
 function getRandQuestions($category = null)
 
