@@ -9,27 +9,40 @@ jQuery(function($) {
 
 	// Initializes the game
 	function init() {
-
 		renderCategories();
 	}
 
 	// Render the categories display
 	function renderCategories() {
 
-		// Load the template file
-		$('#trivia-template').load('templates/startgame.html');
+		$.get('categories',function(response) {
+			var categories = JSON.parse(response);
 
-		// Assign categories to the category object
-		categories = getCategories();
+			// Load the template file
+			$('#trivia-template').load('templates/startgame.html', function() {
 
-		// Render categories on the page
+				// Render categories on the page
+				for (var i = 0; i < categories.length; i++)
+				{
+					var category = categories[i];
+					var html =
+						'<div class="row"><div class="col-md-12">' +
+						'<button class="btn btn-default btn-lg btn-block category" data-id="' + category.id + '">' + category.title + '</button>' +
+						'</div></div>';
 
+					$('#categories').append(html);
+				}
 
-		// Handle events on category click
-		$('button.category').on('click', function(evt) {
-			evt.disableDefault();
+				// Handle events on category click
+				$('button.category').on('click', function(evt) {
+					evt.preventDefault();
 
-			id = $(this).data('id');
+					id = $(this).data('id');
+
+					console.log(id)
+				});
+
+			});
 		});
 	}
 
@@ -46,7 +59,7 @@ jQuery(function($) {
 			var categories = JSON.parse(response);
 
 			return categories;
-		})
+		});
 	}
 
 	// Perform an AJAX GET request to get 10 random questions
@@ -55,7 +68,7 @@ jQuery(function($) {
 			var questions = JSON.parse(response);
 
 			return questions;
-		})
+		});
 	}
 
 	// Initialize the game
