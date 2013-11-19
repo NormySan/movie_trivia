@@ -1,1 +1,13 @@
 /* Movie Trivia Stylesheet */
+
+#site-wrapper {
+	margin-top: 40px;
+}
+
+button.category {
+	margin-bottom: 12px;
+}
+
+h3.category-title {
+	margin-bottom: 40px;
+}
