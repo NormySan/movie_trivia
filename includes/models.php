@@ -3,6 +3,54 @@
  * Movie trivia database functions (models)
  */
 
+//Returns 10 random questions and answers.
+
+function getRandQuestions($category = null)
+
+{
+	global $db;
+
+	// Create an empty questions array so that we always return an empty
+	// array even if there was no data fetched from the database.
+	$randQuestions = array();
+
+	// If the category variable is null we only perform a simple query, if not
+	// we perform a slightly more complex query prepared statement.
+	if (is_null($category))
+	{
+		$statement = $db->prepare('SELECT * FROM questions ORDER BY RAND() WHERE category_id = :category_id LIMIT 10');
+
+ 		$statement->execute(array('category_id' => $category_id));
+	}
+	else
+
+	{
+		// Lets make sure the category is an integer.
+		$category = (int) $category;
+
+		// Prepare the db query statement.
+		$statement = $db->prepare('SELECT * FROM questions ORDER BY RAND() WHERE category_id = :category_id LIMIT 10');
+
+		// Execute the prepared statement and add the placeholder value
+		$statement->execute(array('category_id' => $category));
+	}
+	
+	
+	// Do a while loop to fetch each resulting row in the query.
+	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
+	{
+		// Push each result row into the questions array.
+		$randQuestions[] = $row;
+	}
+
+	// Get answers for the questions
+	$randQuestions = getQuestionAnswers($randQuestions);
+
+	return $randQuestions;
+}
+
+
+
 // Returns a category specified by its identifier.
 function getCategory($id)
 {
