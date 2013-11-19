@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>Categories <small>Manage and add categories</small></h1>
+				<h1>Questions <small>Manage and add questions</small></h1>
 			</div>
 		</div>
 	</div>
@@ -67,8 +67,8 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="answer_3">Answer 4</label>
-									<input type="text" name="answers[]" id="answer_3" class="form-control" required>
+									<label for="answer_4">Answer 4</label>
+									<input type="text" name="answers[]" id="answer_4" class="form-control" required>
 								</div>
 							</div>
 						</div>
