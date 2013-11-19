@@ -34,7 +34,7 @@ if ($route = checkRoutes($routes))
 else
 {
 	// Redirect the user to the default route if no other route matches
-	redirect('/');
+	redirect('');
 }
 
 // Get main template file
