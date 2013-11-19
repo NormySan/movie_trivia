@@ -31,5 +31,8 @@
 
         <!-- Trivia playing board -->
         <div id="trivia-template"></div>
+
+        <!-- Footer -->
+        <?php echo getTemplate('footer'); ?>
     </body>
 </html>
