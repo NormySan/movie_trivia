@@ -10,17 +10,27 @@ jQuery(function($) {
 	// Initializes the game
 	function init() {
 
-		// Assign categories to the category object
-		categories = getCategories();
+		renderCategories();
 	}
 
 	// Render the categories display
 	function renderCategories() {
 
 		// Load the template file
-		$('#trivia-template').load('templates/categories.html');
+		$('#trivia-template').load('templates/startgame.html');
+
+		// Assign categories to the category object
+		categories = getCategories();
+
+		// Render categories on the page
 
 
+		// Handle events on category click
+		$('button.category').on('click', function(evt) {
+			evt.disableDefault();
+
+			id = $(this).data('id');
+		});
 	}
 
 	// Restart the current game
@@ -32,7 +42,7 @@ jQuery(function($) {
 
 	// Gets all availible categories with an AJAX GET request
 	function getCategories() {
-		$.get('categories', function(response) {
+		$.get('categories',function(response) {
 			var categories = JSON.parse(response);
 
 			return categories;
@@ -40,8 +50,8 @@ jQuery(function($) {
 	}
 
 	// Perform an AJAX GET request to get 10 random questions
-	function getQuestions() {
-		$.get('questions', function(response) {
+	function getQuestions(id) {
+		$.get('questions', { id: id }, function(response) {
 			var questions = JSON.parse(response);
 
 			return questions;
