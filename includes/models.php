@@ -19,9 +19,9 @@ function getRandQuestions($category = null)
 	// we perform a slightly more complex query prepared statement.
 	if (is_null($category))
 	{
-		$statement = $db->prepare('SELECT * FROM questions ORDER BY RAND() WHERE category_id = :category_id LIMIT 10');
+		$statement = $db->prepare('SELECT * FROM questions ORDER BY RAND() LIMIT 10');
 
- 		$statement->execute(array('category_id' => $category_id));
+ 		$statement->execute(array('category_id' => $category));
 	}
 	else
 
@@ -30,7 +30,7 @@ function getRandQuestions($category = null)
 		$category = (int) $category;
 
 		// Prepare the db query statement.
-		$statement = $db->prepare('SELECT * FROM questions ORDER BY RAND() WHERE category_id = :category_id LIMIT 10');
+		$statement = $db->prepare('SELECT * FROM questions WHERE category_id = :category_id ORDER BY RAND() LIMIT 10');
 
 		// Execute the prepared statement and add the placeholder value
 		$statement->execute(array('category_id' => $category));
