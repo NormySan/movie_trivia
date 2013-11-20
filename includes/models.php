@@ -24,7 +24,6 @@ function getRandQuestions($category = null)
  		$statement->execute(array('category_id' => $category));
 	}
 	else
-
 	{
 		// Lets make sure the category is an integer.
 		$category = (int) $category;
