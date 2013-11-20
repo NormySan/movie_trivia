@@ -2,7 +2,7 @@
 <html>
     <head>
         <title><?php echo SITE_TITLE; ?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
         <!-- Include CSS files -->
         <link href="<?php echo url('css/bootstrap.css'); ?>" rel="stylesheet">
         <link href="<?php echo url('css/style.css'); ?>" rel="stylesheet">
