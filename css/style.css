@@ -7,6 +7,11 @@
 
 button.category {
 	margin-bottom: 12px;
+	box-shadow: 0 2px 0 0 #555;
+}
+
+button.category:hover{
+	box-shadow: 0 -1px 0 0 #555;
 }
 
 h3.category-title {
@@ -17,6 +22,3 @@ h3.category-title {
 	box-shadow: 0 2px 0 0 #555;
 }
 
-.box-shadow:hover{
-	box-shadow: 0 -1px 0 0 #555;
-}
