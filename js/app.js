@@ -5,7 +5,7 @@ jQuery(function($) {
 	var categories = {}, 
 		questions = {}, 
 		score = 0, 
-		playerName = 'Player 1';
+		playerName = 'Player 1',
 		triviaQuestions = [];
 
 	// Initializes the game
