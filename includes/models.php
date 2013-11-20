@@ -306,6 +306,11 @@ function getQuestions($category = null)
 // Appends answers to the supplied questions
 function getQuestionAnswers($questions = array())
 {
+	if(!count($questions))
+	{
+		return;
+	}
+	
 	global $db;
 
 	// Empty array for andswers.
@@ -320,6 +325,7 @@ function getQuestionAnswers($questions = array())
 		// Push each question id into the ids array.
 		$ids[] = $question['id'];
 	}
+
 
 	// Concatenate all questions ids into a string of ids to be used in the query.
 	$ids = implode(',', $ids);
