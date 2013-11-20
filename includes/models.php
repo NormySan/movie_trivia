@@ -7,7 +7,6 @@
 //Please test.
 
 function getRandQuestions($category = null)
-
 {
 	global $db;
 
@@ -312,6 +311,9 @@ function getQuestionAnswers($questions = array())
 	}
 	
 	global $db;
+
+	// Return if there are no questions in the array.
+	if ( ! count($questions)) return false;
 
 	// Empty array for andswers.
 	$answers = array();
