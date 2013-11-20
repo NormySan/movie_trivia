@@ -79,20 +79,22 @@ jQuery(function($) {
 
 				// Print questions
 				var questionNumber = questions.length;
-				var questionTitle = questions.shift();
+				var questionTitle = triviaQuestions.shift();
 				
-				var answerTitle= shift(question['answers'])
+				var answerTitle = shift(question['answers'])
 
 			    var headerHtml = 
 			    	'<h1 class="txt-shadow">Movie Trivia</h1>' +
 			     	'<p class="txt-shadow">Chosen category: Horror</p>'+
 			     	'<p class="txt-shadow">' + questionNumber + '</p>';
+				$('#headerfield').append(anserHtml);
 
 				var questionHtml = 
 					'<div class="col-md-6">' +
 					'	<p class="lead">'+ questionTitle + '</p>' +
 					'</div>';
-			    
+				$('#questionfield').append(anserHtml);
+
 				var answerHtml = 
 					'<div class="col-md-6">' +
 					'	<p class="lead">'+ answerTitle + '</p>' +
