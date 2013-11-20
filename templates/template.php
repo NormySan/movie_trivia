@@ -16,9 +16,6 @@
         <!-- Include javascript files -->
         <script src="js/vendor/jquery-2.0.3.js"></script>
         <script src="js/vendor/bootstrap.js"></script>
-
-        <!-- This is our applications main file -->
-        <script src="js/app.js"></script>
     </head>
     <body>
         <!-- Admin Menu -->
@@ -28,9 +25,14 @@
 
         <!-- Page Content -->
         <?php echo $content; ?>
+        
+        <?php if (getRouteSegment(0) != 'admin'): ?>
+            <!-- Trivia playing board -->
+            <div id="trivia-template"></div>
 
-        <!-- Trivia playing board -->
-        <div id="trivia-template"></div>
+            <!-- This is our applications main file -->
+            <script src="js/app.js"></script>
+        <?php endif; ?>
 
         <!-- Footer -->
         <?php echo getTemplate('footer'); ?>
