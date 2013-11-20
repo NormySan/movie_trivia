@@ -39,7 +39,8 @@ jQuery(function($) {
 
 					id = $(this).data('id');
 
-					console.log(id)
+					questions = getQuestions(id); 
+					printTriviaQuestion();
 				});
 
 			});
@@ -69,6 +70,47 @@ jQuery(function($) {
 
 			return questions;
 		});
+	}
+
+	function printTriviaQuestion()
+	{
+		$('#trivia-template').load('templates/ingame.html', function() {
+
+				// Print questions
+				var questionNumber = questions.length;
+				var questionTitle = questions.shift();
+				
+				var answerTitle= shift(question['answers'])
+
+			    var headerHtml = 
+			    	'<h1 class="txt-shadow">Movie Trivia</h1>' +
+			     	'<p class="txt-shadow">Chosen category: Horror</p>'+
+			     	'<p class="txt-shadow">' + questionNumber + '</p>';
+
+				var questionHtml = 
+					'<div class="col-md-6">' +
+					'	<p class="lead">'+ questionTitle + '</p>' +
+					'</div>';
+			    
+				var answerHtml = 
+					'<div class="col-md-6">' +
+					'	<p class="lead">'+ answerTitle + '</p>' +
+					'</div>';
+
+				$('#answerfield').append(anserHtml);
+		
+/*
+				// Handle events on category click
+				$('button.category').on('click', function(evt) {
+					evt.preventDefault();
+
+					id = $(this).data('id');
+
+					questions = getQuestions(id); 
+					console.log(questions);
+*/
+
+				});
 	}
 
 	// Initialize the game
