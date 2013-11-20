@@ -66,7 +66,7 @@ function AdminRemoveCategoryController()
 {
 	if (isset($_GET['id']) && is_numeric($_GET['id']))
 	{
-
+		removeCategory($_GET['id']);
 	}
 
 	redirect('admin/categories');
