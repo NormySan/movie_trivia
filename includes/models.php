@@ -325,10 +325,10 @@ function getQuestionAnswers($questions = array())
 	$ids = implode(',', $ids);
 
 	// Prepare the db query.
-	$statement = $db->prepare('SELECT * FROM answers WHERE question_id IN (:ids)');
+	$statement = $db->query("SELECT * FROM answers WHERE question_id IN ($ids)");
 
 	// Execute the prepared statement.
-	$statement->execute(array('ids' => $ids));
+	//$statement->execute(array('ids' => $ids));
 
 	// Get each answer and push it onto the answers array.
 	while ($row = $statement->fetch(PDO::FETCH_ASSOC))
