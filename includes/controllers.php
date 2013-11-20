@@ -12,7 +12,7 @@ function QuestionsController()
 	$id = isset($_GET['id']) ? $_GET['id'] : null;
 
 	// Get random questions
-	$questions = getRandQuestion($id);
+	$questions = getRandQuestions($id);
 
 	// JSON encode the questions
 	$questions = json_encode($questions);
