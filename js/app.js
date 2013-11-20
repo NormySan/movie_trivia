@@ -6,6 +6,7 @@ jQuery(function($) {
 		questions = {}, 
 		score = 0, 
 		playerName = 'Player 1';
+		triviaQuestions = [];
 
 	// Initializes the game
 	function init() {
@@ -39,7 +40,7 @@ jQuery(function($) {
 
 					id = $(this).data('id');
 
-					questions = getQuestions(id); 
+					triviaQuestions = getQuestions(id); 
 					printTriviaQuestion();
 				});
 
