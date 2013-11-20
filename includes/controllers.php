@@ -8,7 +8,7 @@ function HomeController()
 
 function QuestionsController()
 {
-	// Check if id is set
+	// Check if category id is set
 	$id = isset($_GET['id']) ? $_GET['id'] : null;
 
 	// Get random questions
