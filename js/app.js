@@ -2,11 +2,11 @@
 
 jQuery(function($) {
 
-	var categories = {}, 
-		questions = {}, 
+	var categories = {},
 		score = 0, 
 		playerName = 'Player 1',
-		triviaQuestions = [];
+		triviaQuestions = [],
+		answers = [];
 
 	// Initializes the game
 	function init() {
@@ -40,8 +40,12 @@ jQuery(function($) {
 
 					id = $(this).data('id');
 
-					triviaQuestions = getQuestions(id); 
-					printTriviaQuestion();
+					$.get('questions', { id: id }, function(response) {
+						var questions = JSON.parse(response);
+
+						// Load the trivia game template
+						renderQuestionsTemplate(questions);
+					});
 				});
 
 			});
@@ -55,65 +59,65 @@ jQuery(function($) {
 		score = 0;
 	}
 
-	// Gets all availible categories with an AJAX GET request
-	function getCategories() {
-		$.get('categories',function(response) {
-			var categories = JSON.parse(response);
+	// Load and render the trivia questions template
+	function renderQuestionsTemplate(questions) {
 
-			return categories;
-		});
-	}
+		// Add questions to the triviaQuestions array
+		triviaQuestions = questions;
 
-	// Perform an AJAX GET request to get 10 random questions
-	function getQuestions(id) {
-		$.get('questions', { id: id }, function(response) {
-			var questions = JSON.parse(response);
-
-			return questions;
-		});
-	}
-
-	function printTriviaQuestion()
-	{
 		$('#trivia-template').load('templates/ingame.html', function() {
+			printTriviaQuestion();
+		});
+	}
 
-				// Print questions
-				var questionNumber = questions.length;
-				var questionTitle = triviaQuestions.shift();
-				
-				var answerTitle = shift(question['answers'])
+	function printTriviaQuestion() {
 
-			    var headerHtml = 
-			    	'<h1 class="txt-shadow">Movie Trivia</h1>' +
-			     	'<p class="txt-shadow">Chosen category: Horror</p>'+
-			     	'<p class="txt-shadow">' + questionNumber + '</p>';
-				$('#headerfield').append(anserHtml);
+		if (triviaQuestions.length == 0) {
+			endCurrentGame();
+		}
 
-				var questionHtml = 
-					'<div class="col-md-6">' +
-					'	<p class="lead">'+ questionTitle + '</p>' +
-					'</div>';
-				$('#questionfield').append(anserHtml);
+		var correctId,
+			question = triviaQuestions.shift();
+			
+		$('#question-title').append('<h1>' + question.title + '</h1>');
 
-				var answerHtml = 
-					'<div class="col-md-6">' +
-					'	<p class="lead">'+ answerTitle + '</p>' +
-					'</div>';
+		for (var i = 0; i < question.answers.length; i++)
+		{
+			var html = 
+				'<div class="col-md-6">' +
+				'<button class="btn btn-primary btn-lg btn-block answer" data-answer-id="' + question.answers[i].id + '">' + question.answers[i].title + '</button>' +
+				'</div>';
 
-				$('#answerfield').append(anserHtml);
-		
-/*
-				// Handle events on category click
-				$('button.category').on('click', function(evt) {
-					evt.preventDefault();
+			$('#question-answers').append(html);
 
-					id = $(this).data('id');
+			if (question.answers[i].correct == 1) {
+				correctId = question.answers[i].id
+			}
+		}
 
-					questions = getQuestions(id); 
-					console.log(questions);
-*/
+		// When a button is pushed run this event
+		$('button.answer').on('click', function() {
+			var id = $(this).data('answer-id');
 
-				});
+			// Push the answered in to the answers array
+			answers.push(id);
+
+			// Check if the answer was correct
+			if (id == correctId) {
+				$(this).removeClass('btn-primary').addClass('btn-success');
+			} else {
+				$(this).removeClass('btn-primary').addClass('btn-danger');
+			}
+
+			// Push the question to the answered questions array
+
+			console.log(id);
+		});
+	}
+
+	// End the current game
+	function endCurrentGame() {
+
 	}
 
 	// Initialize the game
