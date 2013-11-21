@@ -41,7 +41,7 @@ function getRandQuestions($category = null)
 		// Push each result row into the questions array.
 		$randQuestions[] = $row;
 	}
-
+		
 	// Get answers for the questions
 	$randQuestions = getQuestionAnswers($randQuestions);
 
