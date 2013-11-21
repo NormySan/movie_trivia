@@ -14,10 +14,18 @@ function QuestionsController()
 	// Get random questions
 	$questions = getRandQuestions($id);
 
+	// If questions is false we return a message.
+	if ($questions === false)
+	{
+		$message = json_encode(array('message' => 'No questions found for this category.'));
+
+		response($message);
+	}
+
 	// JSON encode the questions
 	$questions = json_encode($questions);
 
-	// Return the JSOn encoded string
+	// Return the JSON encoded string
 	response($questions);
 }
 
