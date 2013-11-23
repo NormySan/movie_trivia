@@ -70,12 +70,21 @@ jQuery(function($) {
 		});
 	}
 
+	function clearTemplate()
+	{
+		$('#question-title').empty();
+		$('#question-answers').empty();
+	}
+
 	function printTriviaQuestion() {
 
 		if (triviaQuestions.length == 0) {
 			endCurrentGame();
+			return;
 		}
 
+		clearTemplate();
+		
 		var correctId,
 			question = triviaQuestions.shift();
 			
@@ -105,8 +114,11 @@ jQuery(function($) {
 			// Check if the answer was correct
 			if (id == correctId) {
 				$(this).removeClass('btn-primary').addClass('btn-success');
+				score=score+1000;
+				setTimeout(function(){printTriviaQuestion();},1500);
 			} else {
 				$(this).removeClass('btn-primary').addClass('btn-danger');
+				score=score-100;
 			}
 
 			// Push the question to the answered questions array
@@ -117,7 +129,7 @@ jQuery(function($) {
 
 	// End the current game
 	function endCurrentGame() {
-
+		setTimeout(function(){renderCategories();},1500);
 	}
 
 	// Initialize the game
