@@ -16,6 +16,7 @@ jQuery(function($) {
 	// Render the categories display
 	function renderCategories() {
 
+		clearTemplate();
 		$.get('categories',function(response) {
 			var categories = JSON.parse(response);
 
@@ -76,6 +77,14 @@ jQuery(function($) {
 		$('#question-answers').empty();
 	}
 
+	function updateHighscore(change=0)
+	{
+		score=score+change;
+		$('#highscore').empty();
+		$('#highscore').append('<h2>Highscore: ' + score + '</h2>');
+		console.log(score);
+	}
+
 	function printTriviaQuestion() {
 
 		if (triviaQuestions.length == 0) {
@@ -84,11 +93,11 @@ jQuery(function($) {
 		}
 
 		clearTemplate();
-		
+		updateHighscore();
 		var correctId,
 			question = triviaQuestions.shift();
 			
-		$('#question-title').append('<h1>' + question.title + '</h1>');
+		$('#question-title').replaceWith('<h1>' + question.title + '</h1>');
 
 		for (var i = 0; i < question.answers.length; i++)
 		{
@@ -114,22 +123,27 @@ jQuery(function($) {
 			// Check if the answer was correct
 			if (id == correctId) {
 				$(this).removeClass('btn-primary').addClass('btn-success');
-				score=score+1000;
+				updateHighscore(1000);
 				setTimeout(function(){printTriviaQuestion();},1500);
 			} else {
 				$(this).removeClass('btn-primary').addClass('btn-danger');
-				score=score-100;
+				updateHighscore(-200);
 			}
 
-			// Push the question to the answered questions array
 
-			console.log(id);
 		});
 	}
 
 	// End the current game
 	function endCurrentGame() {
-		setTimeout(function(){renderCategories();},1500);
+		awesomeEnding();
+		setTimeout(function(){renderCategories();},1000);
+	}
+
+	function awesomeEnding()
+	{
+		$('#question-answers').empty();
+		$('#question-answers').append('<div id="winningdiv"><img src="./img/awesome.gif"></img></div>');
 	}
 
 	// Initialize the game
