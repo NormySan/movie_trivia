@@ -1,7 +1,7 @@
 Movie Trivia
 ============
 
-0.6 - Game is Playable
+0.6 - Game is Playable!
 
 För att kunna köra applikationen krävs en config fil som ska ligga i includes och heta config.php.
 
