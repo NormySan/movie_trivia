@@ -1,6 +1,8 @@
 Movie Trivia
 ============
 
+0.6 - Game is Playable
+
 För att kunna köra applikationen krävs en config fil som ska ligga i includes och heta config.php.
 
 Här är koden som ska skrivas in i config filen, SITE_PATH ska vara adressen till där index.php ligger baserat utifrån webbrooten (htdocs).
