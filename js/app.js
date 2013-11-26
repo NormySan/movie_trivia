@@ -119,7 +119,7 @@ jQuery(function($) {
 
 			// Push the answered in to the answers array
 			answers.push(id);
-
+			$(this).prop("disabled",true);
 			// Check if the answer was correct
 			if (id == correctId) {
 				$(this).removeClass('btn-primary').addClass('btn-success');
