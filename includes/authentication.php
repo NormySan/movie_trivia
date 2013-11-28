@@ -8,12 +8,13 @@
 function checkUserLevel($formArr=[])
 {
 	
-	//filter_var($formData['username'], FILTER_SANITIZE_STRING);
-	//filter_var($formData['password'], FILTER_SANITIZE_STRING);
-        print('asddsa');
+
+        
 	if(count($formArr))
 	{
-
+		filter_var($formArr['username'], FILTER_SANITIZE_STRING);
+		filter_var($$formArr['password'], FILTER_SANITIZE_STRING);
+		
 		$secureData=getUserData($formArr['username']);
 		$userInput=$formArr['username'];
 		$passwordInput = $formArr['password'];
