@@ -21,7 +21,9 @@ $routes = array(
 	'/admin/questions/remove'	=> 'AdminRemoveQuestionController',
 	'/admin/questions/update'	=> 'AdminUpdateQuestionController',
 	'/questions' 				=> 'QuestionsController',
-	'/categories' 				=> 'CategoriesController'
+	'/categories' 				=> 'CategoriesController',
+	'/login'					=> 'LoginController'
+
 );
 
 // Check if the current route matches any of our application routes. If it does we

@@ -1,10 +1,30 @@
 <?php
-/**
+/*
  * Movie trivia database functions (models)
+ 	if(!$userName)
+	{
+		return false;
+	}
+
  */
 
 //Returns 10 random questions and answers.
 //Please test.
+function getUserData($userName='')
+{
+	global $db;
+	
+ 	if(!$userName)
+	{
+		return false;
+	}
+	
+	$statement = $db->prepare('SELECT * FROM users WHERE username=:username LIMIT 1');
+
+	$statement->execute(array('username' => $userName));
+
+ 	return $statement->fetch(PDO::FETCH_ASSOC);
+}
 
 function getRandQuestions($category = null)
 {

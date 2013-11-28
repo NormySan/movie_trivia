@@ -43,11 +43,12 @@ function CategoriesController()
  */
 function AdminController()
 {
-	if (checkUserLevel() !== 1)
-		{
-			echo getTemplate('login');
-			exit();
-		}
+	//Authenticate user
+	if(checkUserLevel()!==1) {	
+		redirect('login');
+		exit;
+	}
+
 	return getTemplate('admin');
 }
 
@@ -56,11 +57,12 @@ function AdminController()
  */
 function AdminCategoriesController()
 {
-	if (checkUserLevel() !== 1)
-	{
-		echo getTemplate('login');
-		exit();
+	//Authenticate user
+	if(checkUserLevel()!==1) {	
+		return getTemplate('login');
+		exit;
 	}
+	
 	// If we have data set in the post variable the user has created a new category
 	// so lets save it to the database with the submitted post variables.
 	if (isset($_POST) && count($_POST))
@@ -82,12 +84,12 @@ function AdminCategoriesController()
  */
 function AdminRemoveCategoryController()
 {
-	if (checkUserLevel() !== 1)
-	{
-		echo getTemplate('login');
-		exit();
+	//Authenticate user
+	if(checkUserLevel()!==1) {	
+		return getTemplate('login');
+		exit;
 	}
-
+	
 	if (isset($_GET['id']) && is_numeric($_GET['id']))
 	{
 		removeCategory($_GET['id']);
@@ -101,12 +103,12 @@ function AdminRemoveCategoryController()
  */
 function AdminQuestionsController()
 {
-	if (checkUserLevel() !== 1)
-	{
-		echo getTemplate('login');
-		exit();
+	//Authenticate user
+	if(checkUserLevel()!==1) {	
+		return getTemplate('login');
+		exit;
 	}
-
+	
 	// Get all the categories
 	$data['categories'] = getCategories();
 
@@ -146,12 +148,13 @@ function AdminQuestionsController()
  */
 function AdminUpdateQuestionController()
 {
-	if (checkUserLevel() !== 1)
-	{
-		echo getTemplate('login');
-		exit();
-	}	
-
+	
+	//Authenticate user
+	if(checkUserLevel()!==1) {	
+		redirect('login');
+		exit;
+	}
+	
 	if($_POST && count($_POST))
 	{
 		//print_r($_POST);
@@ -165,12 +168,12 @@ function AdminUpdateQuestionController()
  */
 function AdminRemoveQuestionController()
 {
-	if (checkUserLevel() !== 1)
-	{
-		echo getTemplate('login');
-		exit();
+	//Authenticate user
+	if(checkUserLevel()!==1) {	
+		redirect('login');
+		exit;
 	}
-		
+	
 	// Lets make sure there was an id set and that it's a numeric value.
 	if (isset($_GET['id']) && is_numeric($_GET['id']))
 	{
@@ -180,3 +183,22 @@ function AdminRemoveQuestionController()
 	// Redirect the user back to the admin questions page.
 	redirect('admin/questions');
 }
+
+function LoginController()
+{
+	
+	if(isset($_GET['logout']) && isset($_SESSION['user']))
+	{
+		unset($_SESSION['user']);
+		redirect('');
+	}
+
+	if(checkUserLevel($_POST)!==1) 
+	{	
+		return getTemplate('login');
+	}
+
+	redirect('admin');
+
+	
+}		

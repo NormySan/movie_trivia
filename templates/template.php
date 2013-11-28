@@ -18,6 +18,17 @@
         <script src="js/vendor/bootstrap.js"></script>
     </head>
     <body>
+        <?php if(isset($_SESSION['user'])): ?>
+            <?php print('Hi ' . $_SESSION['user']['userName'] . '!')?>
+            <br>
+            <a href="<?php print(url('login?logout=true')); ?>"> 
+                Logout
+            </a>
+        <?php else: ?>
+            <a href="<?php print(url('admin')); ?>"> 
+                Admin Page
+            </a>
+        <?php endif; ?>
         <!-- Admin Menu -->
         <?php if (getRouteSegment(0) == 'admin'): ?>
             <?php echo getTemplate('admin/menu'); ?>
@@ -26,7 +37,7 @@
         <!-- Page Content -->
         <?php echo $content; ?>
         
-        <?php if (getRouteSegment(0) != 'admin'): ?>
+        <?php if (getRouteSegment(0) != 'admin' && getRouteSegment(0) != 'login'): ?>
             <!-- Trivia playing board -->
             <div id="trivia-template"></div>
 
