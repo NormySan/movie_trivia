@@ -116,7 +116,7 @@ jQuery(function($) {
 		// When a button is pushed run this event
 		$('button.answer').on('click', function() {
 			var id = $(this).data('answer-id');
-
+			$(this).prop("disabled",true);
 			// Push the answered in to the answers array
 			answers.push(id);
 
