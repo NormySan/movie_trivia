@@ -193,12 +193,46 @@ function LoginController()
 		redirect('');
 	}
 
-	if(checkUserLevel($_POST)!==1) 
+	switch (checkUserLevel($_POST)) {
+		case -1:
+			return getTemplate('login');
+			break;
+		
+		case 2:
+			redirect('');
+			break;
+		case 1:
+			return getTemplate('admin/questions');
+			break;	
+		default:
+			return getTemplate('login');
+	}
+
+	
+
+}		
+
+function ProfileController()
+{
+
+	if(checkUserLevel()<1) 
 	{	
 		return getTemplate('login');
 	}
 
-	redirect('admin');
+	if(isset($_GET['profile']))
+	{
+		if(getUserData($_GET['profile']))
+		{
+			return getTemplate('profile',array('user' => getUserData($_GET['profile'])));
+		}
+	}
 
-	
-}		
+	return getTemplate('profile',$_SESSION);
+
+}	
+
+function HighscoreController()
+{
+	return getTemplate('highscore',array('HighscoresAndUsernames'=>getHighscoresAndUsernames()));
+}	

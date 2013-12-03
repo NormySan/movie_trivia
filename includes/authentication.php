@@ -13,8 +13,9 @@ function checkUserLevel($formArr=[])
 	if(count($formArr))
 	{
 		filter_var($formArr['username'], FILTER_SANITIZE_STRING);
-		filter_var($$formArr['password'], FILTER_SANITIZE_STRING);
+		filter_var($formArr['password'], FILTER_SANITIZE_STRING);
 		
+
 		$secureData=getUserData($formArr['username']);
 		$userInput=$formArr['username'];
 		$passwordInput = $formArr['password'];
@@ -22,8 +23,8 @@ function checkUserLevel($formArr=[])
 	elseif(isset($_SESSION['user']))
 	{
 		
-		$secureData=getUserData($_SESSION['user']['userName']);
-		$userInput=$_SESSION['user']['userName'];
+		$secureData=getUserData($_SESSION['user']['username']);
+		$userInput=$_SESSION['user']['username'];
 		$passwordInput = $_SESSION['user']['password'];
 	}
 	else
@@ -39,7 +40,7 @@ function checkUserLevel($formArr=[])
 			
 			$_SESSION['user']=array('userID'    => $secureData['userid'],
 									'userLevel' => $secureData['userlevel'],
-									'userName'  => $secureData['username'],
+									'username'  => $secureData['username'],
 									'password'  => $secureData['password'],
 									'highscore' => $secureData['highscore'],
 									'lastLogin' => $secureData['lastlogin']);

@@ -34,3 +34,19 @@ h3.category-title {
     text-align:center;
     display:block;
 }
+
+.affix-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index:2;
+}
+
+.affix-bottom {
+    position: fixed;
+    top: auto;
+    margin-bottom:0px;
+    bottom: 0px;
+    width: 100%;
+    z-index:2;
+}

@@ -1,16 +1,6 @@
 <?php
-/*
- * Movie trivia database functions (models)
- 	if(!$userName)
-	{
-		return false;
-	}
 
- */
-
-//Returns 10 random questions and answers.
-//Please test.
-function getUserData($userName='')
+function getUserData($userName)
 {
 	global $db;
 	
@@ -25,7 +15,8 @@ function getUserData($userName='')
 
  	return $statement->fetch(PDO::FETCH_ASSOC);
 }
-
+//Returns 10 random questions and answers.
+//Please test.
 function getRandQuestions($category = null)
 {
 	global $db;
@@ -108,6 +99,22 @@ function getCategories()
 	}
 
 	return $categories;
+}
+
+function getHighscoresAndUsernames()
+{
+	global $db;
+
+	$usernamesAndHighscores = array();
+
+	$results = $db->query('SELECT highscore,username FROM users ORDER BY highscore DESC');
+
+	while ($row = $results->fetch(PDO::FETCH_ASSOC))
+	{
+		$usernamesAndHighscores[ucfirst($row['username'])] = $row['highscore'];
+	}
+
+	return $usernamesAndHighscores;
 }
 
 // Saves a category to the database

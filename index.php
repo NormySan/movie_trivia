@@ -22,8 +22,9 @@ $routes = array(
 	'/admin/questions/update'	=> 'AdminUpdateQuestionController',
 	'/questions' 				=> 'QuestionsController',
 	'/categories' 				=> 'CategoriesController',
-	'/login'					=> 'LoginController'
-
+	'/login'					=> 'LoginController',
+	'/profile'					=> 'ProfileController',
+	'/highscore'				=> 'HighscoreController'
 );
 
 // Check if the current route matches any of our application routes. If it does we
@@ -44,3 +45,4 @@ $template = getTemplate('template', $data);
 
 // Set the response to be the current main template file
 response($template);
+
