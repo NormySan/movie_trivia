@@ -1,6 +1,6 @@
 <?php
 
-function getUserData($userName)
+function getUserData($userName='')
 {
 	global $db;
 	
@@ -15,6 +15,33 @@ function getUserData($userName)
 
  	return $statement->fetch(PDO::FETCH_ASSOC);
 }
+
+function getUserRanking($userName='')
+{
+	global $db;
+	
+ 	if(!$userName)
+	{
+		return false;
+	}
+	$userName=strtolower($userName);
+
+	$statement = $db->prepare('SELECT username, highscore FROM users ORDER BY highscore DESC');
+	$statement->execute();
+
+	$ladderPosition=0;
+	while ($row = $statement->fetch())
+	{
+		$ladderPosition++;
+		if($userName == strtolower($row['username']))
+		{
+			return $ladderPosition;
+		}
+	}
+	
+	return -1;
+}
+
 //Returns 10 random questions and answers.
 //Please test.
 function getRandQuestions($category = null)

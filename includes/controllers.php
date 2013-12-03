@@ -49,7 +49,7 @@ function AdminController()
 		exit;
 	}
 
-	return getTemplate('admin');
+	return getTemplate('admin/questions');
 }
 
 /**
